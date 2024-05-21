@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { Box, Button, Container, FormControl, FormLabel, Input, VStack, HStack, Text, IconButton } from "@chakra-ui/react";
-import { FaEdit, FaCheck, FaTimes } from "react-icons/fa";
+import { Box, Button, Container, FormControl, FormLabel, Input, VStack, HStack, Text } from "@chakra-ui/react";
 
 const ManageMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [newMenuItem, setNewMenuItem] = useState("");
-  const [editingItem, setEditingItem] = useState(null);
-  const [editingName, setEditingName] = useState("");
 
   const addMenuItem = () => {
     setMenuItems([...menuItems, { id: menuItems.length + 1, name: newMenuItem }]);
@@ -15,22 +12,6 @@ const ManageMenu = () => {
 
   const removeMenuItem = (id) => {
     setMenuItems(menuItems.filter((item) => item.id !== id));
-  };
-
-  const startEditing = (item) => {
-    setEditingItem(item);
-    setEditingName(item.name);
-  };
-
-  const cancelEditing = () => {
-    setEditingItem(null);
-    setEditingName("");
-  };
-
-  const saveEditing = () => {
-    setMenuItems(menuItems.map((item) => (item.id === editingItem.id ? { ...item, name: editingName } : item)));
-    setEditingItem(null);
-    setEditingName("");
   };
 
   return (
@@ -47,19 +28,7 @@ const ManageMenu = () => {
           {menuItems.map((item) => (
             <HStack key={item.id} justify="space-between">
               <Text>{item.name}</Text>
-              {editingItem && editingItem.id === item.id ? (
-                <>
-                  <Input value={editingName} onChange={(e) => setEditingName(e.target.value)} />
-                  <IconButton icon={<FaCheck />} onClick={saveEditing} />
-                  <IconButton icon={<FaTimes />} onClick={cancelEditing} />
-                </>
-              ) : (
-                <>
-                  <Text>{item.name}</Text>
-                  <IconButton icon={<FaEdit />} onClick={() => startEditing(item)} />
-                  <Button onClick={() => removeMenuItem(item.id)}>Remove</Button>
-                </>
-              )}
+              <Button onClick={() => removeMenuItem(item.id)}>Remove</Button>
             </HStack>
           ))}
         </Box>
