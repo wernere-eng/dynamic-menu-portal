@@ -3,15 +3,35 @@ import { Box, Container, VStack, HStack, Text, Link, IconButton, SimpleGrid } fr
 import { FaHome, FaUser, FaCog, FaPlus } from "react-icons/fa";
 
 const menuItems = [
-  { id: 1, name: "Home", icon: FaHome },
-  { id: 2, name: "Profile", icon: FaUser },
-  { id: 3, name: "Settings", icon: FaCog },
-];
-
-const centralPageLinks = [
-  { id: 1, name: "Dashboard", path: "/dashboard" },
-  { id: 2, name: "Reports", path: "/reports" },
-  { id: 3, name: "Analytics", path: "/analytics" },
+  {
+    id: 1,
+    name: "Home",
+    icon: FaHome,
+    links: [
+      { id: 1, name: "Dashboard", path: "/dashboard" },
+      { id: 2, name: "Reports", path: "/reports" },
+      { id: 3, name: "Analytics", path: "/analytics" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Profile",
+    icon: FaUser,
+    links: [
+      { id: 1, name: "Profile Overview", path: "/profile-overview" },
+      { id: 2, name: "Account Settings", path: "/account-settings" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Settings",
+    icon: FaCog,
+    links: [
+      { id: 1, name: "Security", path: "/security" },
+      { id: 2, name: "Edit Menu", path: "/edit-menu" },
+      { id: 3, name: "Edit Theme", path: "/edit-theme" },
+    ],
+  },
 ];
 
 const SideMenu = ({ onSelect }) => {
@@ -27,10 +47,10 @@ const SideMenu = ({ onSelect }) => {
   );
 };
 
-const CentralPage = () => {
+const CentralPage = ({ links }) => {
   return (
     <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} p={4}>
-      {centralPageLinks.map((link) => (
+      {links.map((link) => (
         <Box key={link.id} p={5} shadow="md" borderWidth="1px" borderRadius="md">
           <Link href={link.path}>
             <Text fontSize="xl">{link.name}</Text>
@@ -42,16 +62,21 @@ const CentralPage = () => {
 };
 
 const Index = () => {
-  const [selectedMenu, setSelectedMenu] = useState("Home");
+  const [selectedMenu, setSelectedMenu] = useState(menuItems[0]);
+
+  const handleMenuSelect = (menuName) => {
+    const selected = menuItems.find((item) => item.name === menuName);
+    setSelectedMenu(selected);
+  };
 
   return (
     <Container maxW="container.xl" display="flex" p={0}>
-      <SideMenu onSelect={setSelectedMenu} />
+      <SideMenu onSelect={handleMenuSelect} />
       <Box flex="1" p={4}>
         <Text fontSize="2xl" mb={4}>
-          {selectedMenu}
+          {selectedMenu.name}
         </Text>
-        <CentralPage />
+        <CentralPage links={selectedMenu.links} />
       </Box>
     </Container>
   );
