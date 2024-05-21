@@ -12,6 +12,7 @@ const centralPageLinks = [
   { id: 1, name: "Dashboard", path: "/dashboard" },
   { id: 2, name: "Reports", path: "/reports" },
   { id: 3, name: "Analytics", path: "/analytics" },
+  { id: 4, name: "Manage Menu", path: "/manage-menu" },
 ];
 
 const SideMenu = ({ onSelect }) => {
