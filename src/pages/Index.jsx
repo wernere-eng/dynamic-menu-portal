@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Container, VStack, HStack, Text, Link, IconButton, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container, VStack, HStack, Text, Link, IconButton, SimpleGrid, useTheme } from "@chakra-ui/react";
 import { FaHome, FaUser, FaCog, FaPlus } from "react-icons/fa";
 
 const menuItems = [
@@ -35,10 +35,11 @@ const menuItems = [
 ];
 
 const SideMenu = ({ onSelect }) => {
+  const theme = useTheme();
   return (
-    <VStack spacing={4} align="stretch" p={4} bg="gray.100" height="100vh">
+    <VStack spacing={4} align="stretch" p={4} bg={theme.colors.gray[100]} height="100vh">
       {menuItems.map((item) => (
-        <HStack key={item.id} spacing={4} onClick={() => onSelect(item.name)} cursor="pointer">
+        <HStack key={item.id} spacing={4} onClick={() => onSelect(item.name)} cursor="pointer" _hover={{ bg: theme.colors.gray[200] }}>
           <IconButton aria-label={item.name} icon={<item.icon />} size="lg" />
           <Text>{item.name}</Text>
         </HStack>
@@ -48,10 +49,11 @@ const SideMenu = ({ onSelect }) => {
 };
 
 const CentralPage = ({ links }) => {
+  const theme = useTheme();
   return (
     <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10} p={4}>
       {links.map((link) => (
-        <Box key={link.id} p={5} shadow="md" borderWidth="1px" borderRadius="md">
+        <Box key={link.id} p={5} shadow="md" borderWidth="1px" borderRadius="md" _hover={{ bg: theme.colors.gray[50] }}>
           <Link href={link.path}>
             <Text fontSize="xl">{link.name}</Text>
           </Link>
