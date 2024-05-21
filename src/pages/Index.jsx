@@ -5,7 +5,7 @@ import { FaHome, FaUser, FaCog, FaPlus } from "react-icons/fa";
 const menuItems = [
   { id: 1, name: "Home", icon: FaHome },
   { id: 2, name: "Profile", icon: FaUser },
-  { id: 3, name: "Settings", icon: FaCog },
+  { id: 3, name: "Settings", icon: FaCog, path: "/edit-menu" },
 ];
 
 const centralPageLinks = [
@@ -19,7 +19,9 @@ const SideMenu = ({ onSelect }) => {
     <VStack spacing={4} align="stretch" p={4} bg="gray.100" height="100vh">
       {menuItems.map((item) => (
         <HStack key={item.id} spacing={4} onClick={() => onSelect(item.name)} cursor="pointer">
-          <IconButton aria-label={item.name} icon={<item.icon />} size="lg" />
+          <Link href={item.path || "#"}>
+            <IconButton aria-label={item.name} icon={<item.icon />} size="lg" />
+          </Link>
           <Text>{item.name}</Text>
         </HStack>
       ))}
