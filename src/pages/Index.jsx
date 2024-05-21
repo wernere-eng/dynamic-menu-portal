@@ -30,6 +30,7 @@ const menuItems = [
       { id: 1, name: "Security", path: "/security" },
       { id: 2, name: "Edit Menu", path: "/edit-menu" },
       { id: 3, name: "Edit Theme", path: "/edit-theme" },
+      { id: 4, name: "Database Connection", path: "/database-connection" },
     ],
   },
 ];
